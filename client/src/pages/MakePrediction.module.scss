@@ -1,0 +1,15 @@
+.selectDateBox{
+    width: 90vw;
+    margin: 5rem auto 5rem;
+}
+
+.dateBox{
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: start;
+    
+    label{
+        width: fit-content;
+    }
+}
