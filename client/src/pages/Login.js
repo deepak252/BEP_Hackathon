@@ -1,9 +1,10 @@
 import React,{useState} from 'react' 
 
-const Login=()=>{
+const Login = ()=>{
 	const [email, setEmail]=useState("");
 	const [passw, setPassw]=useState("");
 	const[dataInput, setDataInput]=useState("");
+	
 	const submitThis=()=>{
 		const info={email:email,passw:passw}; 
 		setDataInput([info]);
@@ -24,4 +25,4 @@ const Login=()=>{
 	</div>
 )}
 
-export default Login
+export default Login;
