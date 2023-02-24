@@ -1,27 +1,50 @@
 import React,{useState} from 'react' 
+import classes from "./Auth.module.scss"
+import {sendLoginDetails} from "../Api"
 
-const Login=()=>{
+const Login = ()=>{
 	const [email, setEmail]=useState("");
-	const [passw, setPassw]=useState("");
-	const[dataInput, setDataInput]=useState("");
-	const submitThis=()=>{
-		const info={email:email,passw:passw}; 
-		setDataInput([info]);
+	const [password, setPassword]=useState("");
+	
+	const submitThis=(event)=>{
+		event.preventDefault()
+		console.log("calling send login details function");
+		sendLoginDetails(email, password);
 	}
-	return(
-	<div>
-		<form action="" onSubmit={submitThis}> 
-			<div> 
-				<label htmlFor="email">Email</label>
-				<input type="text" name="email" id="email" value={email} onChange={(e)=>setEmail(e.target.value)}/> 
-			</div> 
-			<div> 
-				<label htmlFor="passw">Password</label>
-			<input type="text" name="passw" id="passw" value={passw} onChange={(e)=>setPassw(e.target.value)}/> 
-			</div>  
-			<button type="submit">Login</button>
-		</form>
-	</div>
-)}
+	return (
+		<form className={classes["form"]} action="" onSubmit={submitThis}>
+        <h3>Sign In</h3>
+        <div className="mb-3">
+          <label>Email address</label>
+          <input
+            type="email"
+            className="form-control"
+            placeholder="Enter email"
+			name="email"
+			id="email"
+			value={email}
+			onChange={(e)=>setEmail(e.target.value)}
+          />
+        </div>
+        <div className="mb-3">
+          <label>Password</label>
+          <input
+            type="password"
+            className="form-control"
+            placeholder="Enter email"
+			name="password"
+			id="password"
+			value={password}
+			onChange={(e)=>setPassword(e.target.value)}
+          />
+        </div>
+        <div className="d-grid">
+          <button type="submit" className="btn btn-primary">
+            Submit
+          </button>
+        </div>
+      </form>
+	  );
+}
 
-export default Login
+export default Login;
