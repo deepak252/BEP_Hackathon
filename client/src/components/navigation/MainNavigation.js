@@ -9,7 +9,7 @@ function MainNavigation() {
   return (
     <Navbar className={classes.navbar} expand="lg">
       <Container>
-        <Navbar.Brand href="/" style={{color:"white"}}>Byju's Premier League</Navbar.Brand>
+        <Navbar.Brand href="/" style={{color:"white"}}>IPL</Navbar.Brand>
         <Nav className="me-auto">
           <NavLink to="/" className={(navData) => navData.isActive ? `${classes["isLinkActive"]} ${classes["link"]}`: `${classes["link"]}`}>Make a prediction</NavLink>
           <NavLink to="/leaderboard" className={(navData) => navData.isActive ? `${classes["isLinkActive"]} ${classes["link"]}`: `${classes["link"]}`}>Leaderboard</NavLink>
