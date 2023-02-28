@@ -1,18 +1,30 @@
 const Prediction = require("../models/prediction");
+const Match = require("../models/match");
 const { errorMessage, successMessage } = require("../utils/responseUtils");
 
 module.exports.createPrediction = async (req,res)=>{
     try{
-        const {match,team} = req.body;
-        if(!match || !team){
-            res.status(400).json(errorMessage("match and team ids are required"));
-            return;
+        const {match,team,predictedFor} = req.body;
+        if(!match || !team || !predictedFor){
+            return res.status(400).json(errorMessage("match, team id, predictedFor are required"));
         }
+
+        var matchRes = Match.findOne({match});
+        if(!matchRes){
+            return res.status(400).json(errorMessage("No match found!"));
+        }
+
+        const currDate = new Date();
+        var matchDate = matchRes.matchDate;
+        if(currDate.getTime() - matchDate.getTime()>0){
+            return res.status(400).json(errorMessage("Invalid date selected!"));
+        }
+
         var predict = await Prediction.create({
             "user" : req.user._id,
             match,
             team,
-            "predictedAt" : new Date().toString()});
+            "predictedFor" : new Date(predictedFor)});
         return res.json(successMessage(predict));
     }catch(err){
         console.log(err)

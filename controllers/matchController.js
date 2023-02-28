@@ -35,21 +35,18 @@ module.exports.getMatchByDate = async (req,res)=>{
             return res.status(400).json(errorMessage("Match date is required!"));
         }
         var matchDate = new Date(req.body.date);
-        matchDate.setHours(16,30,0,0);
+        
+        var match = await getMatchFromDate(matchDate);
 
-        // var matchDate = new Date(Date.UTC(date.getFullYear(), date.getMonth(),date.getDate(), 11,0,0 )).toISOString()
-        var allMatches = await Match.find({
-            matchDate
-        }).populate('team1 team2');
-        var currentDate = new Date(new Date().toUTCString())
+        var currentDate = new Date(new Date().toUTCString());
         var timeRemaining = (matchDate-currentDate)/1000; // Time remaining in minutes
         if (timeRemaining < 0)
             return res.json(successMessage({
-                allMatches
+                "allMatches" : [match]
             }));
         else 
         return res.json(successMessage({
-            allMatches,
+            match,
             timeRemaining
         }));
     }catch(err){
@@ -67,26 +64,21 @@ module.exports.setResult = async (req,res)=>{
         if(teamNo!=1 && teamNo!=2){
             return res.status(400).json(errorMessage("Invalid teamNo"));
         }
-        var matchDate = new Date()
-        matchDate.setHours(16,30,0,0);
-        matchDate = matchDate.toISOString();
+        var match = await getMatchFromDate(new Date());
         
-        var match = await Match.findOne({
-            matchDate
-        },).populate('team1 team2');
-
         if(!match){
             return res.status(400).json(errorMessage("No match found"));
         }
         match.winner = mongoose.Types.ObjectId(
             teamNo===1 ? match.team1._id : match.team2._id
         )
-        await match.save();
 
+        await match.save();
+        
         if(!match){
             return res.status(400).json(errorMessage("No match found on given date"));
         }
-        
+
         return res.json(successMessage(match));
     }catch(err){
         console.log(err)
@@ -94,3 +86,12 @@ module.exports.setResult = async (req,res)=>{
     }
 }
 
+
+const getMatchFromDate=async(matchDate)=>{
+    matchDate.setHours(16,30,0,0);
+    matchDate = matchDate.toISOString();
+        
+    return await Match.findOne({
+        matchDate
+    },).populate('team1 team2');
+}
