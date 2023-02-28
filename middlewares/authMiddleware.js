@@ -11,7 +11,7 @@ module.exports = (req,res,next)=>{
         }
         var data = jwt.verify(token, process.env.JWT_SECRET);
         // token verified successfully
-        req.user = data;
+        req.user = data.user;
         next();
     }catch(err){
         return res.status(400).json(errorMessage(err))
