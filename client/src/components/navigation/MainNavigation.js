@@ -14,10 +14,10 @@ function MainNavigation() {
         <Nav className="me-auto">
           <NavLink to="/" className={(navData) => navData.isActive ? `${classes["isLinkActive"]} ${classes["link"]}`: `${classes["link"]}`}>Make a prediction</NavLink>
           <NavLink to="/leaderboard" className={(navData) => navData.isActive ? `${classes["isLinkActive"]} ${classes["link"]}`: `${classes["link"]}`}>Leaderboard</NavLink>
+          <NavLink to="/predictionHistory" className={(navData) => navData.isActive ? `${classes["isLinkActive"]} ${classes["link"]}`: `${classes["link"]}`}>Prediction History</NavLink>
           </Nav>
           <NavLink   to="/login" className={`${classes["link"]} ${classes["logout-btn"]}`}>Logout</NavLink>
         </Navbar.Collapse>
-        <NavLink to="/predictionHistory" className={(navData) => navData.isActive ? `${classes["isLinkActive"]} ${classes["link"]}`: `${classes["link"]}`}>Prediction History</NavLink>
 
       </Container>
     </Navbar>
