@@ -1,5 +1,7 @@
 const { default: mongoose } = require("mongoose");
 const Match = require("../models/match");
+const Prediction = require("../models/prediction");
+const User = require("../models/user");
 const { errorMessage, successMessage } = require("../utils/responseUtils");
 
 module.exports.createMatch = async (req,res)=>{
@@ -35,21 +37,18 @@ module.exports.getMatchByDate = async (req,res)=>{
             return res.status(400).json(errorMessage("Match date is required!"));
         }
         var matchDate = new Date(req.body.date);
-        matchDate.setHours(16,30,0,0);
+        
+        var match = await getMatchFromDate(matchDate);
 
-        // var matchDate = new Date(Date.UTC(date.getFullYear(), date.getMonth(),date.getDate(), 11,0,0 )).toISOString()
-        var allMatches = await Match.find({
-            matchDate
-        }).populate('team1 team2');
-        var currentDate = new Date(new Date().toUTCString())
+        var currentDate = new Date(new Date().toUTCString());
         var timeRemaining = (matchDate-currentDate)/1000; // Time remaining in minutes
         if (timeRemaining < 0)
             return res.json(successMessage({
-                allMatches
+                "allMatches" : [match]
             }));
         else 
         return res.json(successMessage({
-            allMatches,
+            match,
             timeRemaining
         }));
     }catch(err){
@@ -62,30 +61,39 @@ module.exports.setResult = async (req,res)=>{
     try{
         var teamNo = req.body.teamNo
         if(!teamNo){
-            return res.status(400).json(errorMessage("teamNo (1 or 2) is required"));
+            return res.status(400).json(errorMessage("teamNo (1 or 2), match id (optional) is required"));
         }
         if(teamNo!=1 && teamNo!=2){
             return res.status(400).json(errorMessage("Invalid teamNo"));
         }
-        var matchDate = new Date()
-        matchDate.setHours(16,30,0,0);
-        matchDate = matchDate.toISOString();
-        
-        var match = await Match.findOne({
-            matchDate
-        },).populate('team1 team2');
-
+        var match;
+        if(req.body.match){
+            match = await Match.findById(req.body.match);
+        }else{
+            match = await getMatchFromDate(new Date());
+        }
         if(!match){
             return res.status(400).json(errorMessage("No match found"));
         }
-        match.winner = mongoose.Types.ObjectId(
-            teamNo===1 ? match.team1._id : match.team2._id
+        // if(match.winner){
+        //     return res.status(400).json(errorMessage("Match result already declared!"));
+        // }
+        var winnerId = teamNo===1 ? match.team1._id : match.team2._id;
+        match.winner = mongoose.Types.ObjectId(winnerId);
+        // Get Correct Predictions
+        var predictions = await Prediction.find({
+            match : match.id, 
+            team : winnerId
+        });
+        // console.log({predictions});
+        var userIds = predictions.map(predict=>predict.user);
+        // Update users score
+        await User.updateMany(
+            { "_id": {$in: userIds} },
+            {$inc : {'score' : 10}},  // increment score 10
         )
-        await match.save();
 
-        if(!match){
-            return res.status(400).json(errorMessage("No match found on given date"));
-        }
+        await match.save();
         
         return res.json(successMessage(match));
     }catch(err){
@@ -94,3 +102,12 @@ module.exports.setResult = async (req,res)=>{
     }
 }
 
+
+const getMatchFromDate=async(matchDate)=>{
+    matchDate.setHours(16,30,0,0);
+    matchDate = matchDate.toISOString();
+        
+    return await Match.findOne({
+        matchDate
+    },).populate('team1 team2');
+}

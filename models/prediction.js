@@ -16,7 +16,7 @@ const predictionSchema = new mongoose.Schema({
         ref: "Team",
         required: true,
     },
-    predictedAt : {
+    predictedFor : {
         type : Date
     }
 }, { timestamps: true });

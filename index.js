@@ -14,6 +14,7 @@ app.use(require("./routes/authRoute"));
 app.use(require("./routes/matchRoute"));
 app.use(require("./routes/teamRoute"));
 app.use(require("./routes/predictionRoute"));
+app.use(require("./routes/userRoute"));
 
 connectMongo();
 
