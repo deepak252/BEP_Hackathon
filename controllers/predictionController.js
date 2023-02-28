@@ -1,3 +1,4 @@
+const Match = require("../models/match");
 const Prediction = require("../models/prediction");
 const { errorMessage, successMessage } = require("../utils/responseUtils");
 
@@ -30,3 +31,19 @@ module.exports.getAllPredictions = async (req,res)=>{
     }
 }
 
+module.exports.getPredictionHistory = async (req, res) => {
+    try{
+        var date = new Date()
+        date.setHours(18, 0, 0, 0)
+        var pastPredictions = await Prediction.find({
+            "user" : req.user._id,
+            "predictedFor" : { $lte: date }
+        })
+        .lean()
+        .populate("user team match")
+        return res.json(successMessage(pastPredictions));
+    } catch(err) {
+        console.log(err);
+        return res.status(400).json(errorMessage(err.message));
+    }
+}
