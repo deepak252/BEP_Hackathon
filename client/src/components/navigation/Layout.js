@@ -5,7 +5,7 @@ const Layout = (props) => {
   return (
     <div>
         <MainNavigation/>
-        <div style={{background: "url('../../public/images/iplTeams.jpeg')"}}>
+        <div>
             {props.children}
         </div>    
     </div>

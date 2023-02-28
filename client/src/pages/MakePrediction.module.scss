@@ -21,9 +21,11 @@
     position: relative;
     width: 100%;
     background-image: url('../../public/images/iplTeams.jpeg');
+    background-color: black;
     background-repeat: no-repeat;
-    background-size: cover;
-    height: 100vh;
+    background-size: contain;
+    padding-bottom: 2rem;
+    min-height: 100vh;
 }
 
 .today_match_title{

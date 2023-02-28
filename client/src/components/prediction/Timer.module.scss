@@ -1,3 +1,39 @@
 .timer{
     color: white;
+    display: flex;
+    gap: 1rem;
+    text-align: center;
+    justify-content: center;
+}
+
+.time {
+   font-size: 3rem;
+   background-color: rgba(255, 255, 255, 0.2);
+   margin: 5px;
+   padding: 5px;
+   width: 100%;
+   text-align: center;
+   min-width: 70px;
+   border-radius: 7px;
+   p{
+    margin: 0%;
+    opacity: 100% !important;
+   }
+}
+
+.label {
+    font-size: 1rem;
+    background-color: #1d397a;
+    margin: 5px;
+    padding: 5px;
+    width: 100%;
+    text-align: center;
+    border-radius: 7px;
+}
+
+.timeGroup {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
 }
