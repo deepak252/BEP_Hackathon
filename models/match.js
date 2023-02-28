@@ -13,7 +13,12 @@ const matchSchema = new mongoose.Schema({
     },
     matchDate : {
         type : Date
-    }
+    },
+    winner : {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "Team"
+    },
+
 
 }, { timestamps: true });
 

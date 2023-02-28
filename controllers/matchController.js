@@ -1,3 +1,4 @@
+const { default: mongoose } = require("mongoose");
 const Match = require("../models/match");
 const { errorMessage, successMessage } = require("../utils/responseUtils");
 
@@ -51,6 +52,42 @@ module.exports.getMatchByDate = async (req,res)=>{
             allMatches,
             timeRemaining
         }));
+    }catch(err){
+        console.log(err)
+        return res.status(400).json(errorMessage(err.message));
+    }
+}
+
+module.exports.setResult = async (req,res)=>{
+    try{
+        var teamNo = req.body.teamNo
+        if(!teamNo){
+            return res.status(400).json(errorMessage("teamNo (1 or 2) is required"));
+        }
+        if(teamNo!=1 && teamNo!=2){
+            return res.status(400).json(errorMessage("Invalid teamNo"));
+        }
+        var matchDate = new Date()
+        matchDate.setHours(16,30,0,0);
+        matchDate = matchDate.toISOString();
+        
+        var match = await Match.findOne({
+            matchDate
+        },).populate('team1 team2');
+
+        if(!match){
+            return res.status(400).json(errorMessage("No match found"));
+        }
+        match.winner = mongoose.Types.ObjectId(
+            teamNo===1 ? match.team1._id : match.team2._id
+        )
+        await match.save();
+
+        if(!match){
+            return res.status(400).json(errorMessage("No match found on given date"));
+        }
+        
+        return res.json(successMessage(match));
     }catch(err){
         console.log(err)
         return res.status(400).json(errorMessage(err.message));
