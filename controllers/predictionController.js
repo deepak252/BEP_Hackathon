@@ -1,31 +1,45 @@
+const { Mongoose } = require("mongoose");
 const Match = require("../models/match");
 const Prediction = require("../models/prediction");
-const Match = require("../models/match");
 const { errorMessage, successMessage } = require("../utils/responseUtils");
 
 module.exports.createPrediction = async (req,res)=>{
     try{
-        const {match,team,predictedFor} = req.body;
-        if(!match || !team || !predictedFor){
-            return res.status(400).json(errorMessage("match, team id, predictedFor are required"));
+        const {match,team} = req.body;  // match & team ids
+        if(!match || !team){
+            return res.status(400).json(errorMessage("match, team id are required"));
         }
-
-        var matchRes = Match.findOne({match});
+        // Check whether user already predicted for the match
+        var predict = await Prediction.findOne({
+            match : match, user : req.user._id
+        });
+        if(predict){
+            return res.status(400).json(errorMessage("Prediction already submitted!"));
+        }
+        // Get match from match Id
+        var matchRes = await Match.findById(match);
         if(!matchRes){
             return res.status(400).json(errorMessage("No match found!"));
         }
-
         const currDate = new Date();
         var matchDate = matchRes.matchDate;
-        if(currDate.getTime() - matchDate.getTime()>0){
-            return res.status(400).json(errorMessage("Invalid date selected!"));
+        // console.log(currDate,matchDate)
+        // Check if match is already started OR ended, stop predictions
+        if(currDate.getTime() > matchDate.getTime()){
+            return res.status(400).json(errorMessage("Prediction submission closed."));
         }
-
+        // Check whether team exists in match
+        if(!matchRes.team1.equals(team) && !matchRes.team2.equals(team)){
+            return res.status(400).json(errorMessage("Team doesn't exists in the match!"));
+        }
+        
         var predict = await Prediction.create({
             "user" : req.user._id,
             match,
             team,
-            "predictedFor" : new Date(predictedFor)});
+            "predictedFor" : matchDate
+        });
+
         return res.json(successMessage(predict));
     }catch(err){
         console.log(err)
@@ -52,7 +66,7 @@ module.exports.getPredictionHistory = async (req, res) => {
             "predictedFor" : { $lte: date }
         })
         .lean()
-        .populate("user team match")
+        .populate("user team match");
         return res.json(successMessage(pastPredictions));
     } catch(err) {
         console.log(err);

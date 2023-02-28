@@ -1,5 +1,7 @@
 const { default: mongoose } = require("mongoose");
 const Match = require("../models/match");
+const Prediction = require("../models/prediction");
+const User = require("../models/user");
 const { errorMessage, successMessage } = require("../utils/responseUtils");
 
 module.exports.createMatch = async (req,res)=>{
@@ -59,26 +61,40 @@ module.exports.setResult = async (req,res)=>{
     try{
         var teamNo = req.body.teamNo
         if(!teamNo){
-            return res.status(400).json(errorMessage("teamNo (1 or 2) is required"));
+            return res.status(400).json(errorMessage("teamNo (1 or 2), match id (optional) is required"));
         }
         if(teamNo!=1 && teamNo!=2){
             return res.status(400).json(errorMessage("Invalid teamNo"));
         }
-        var match = await getMatchFromDate(new Date());
-        
+        var match;
+        if(req.body.match){
+            match = await Match.findById(req.body.match);
+        }else{
+            match = await getMatchFromDate(new Date());
+        }
         if(!match){
             return res.status(400).json(errorMessage("No match found"));
         }
-        match.winner = mongoose.Types.ObjectId(
-            teamNo===1 ? match.team1._id : match.team2._id
+        // if(match.winner){
+        //     return res.status(400).json(errorMessage("Match result already declared!"));
+        // }
+        var winnerId = teamNo===1 ? match.team1._id : match.team2._id;
+        match.winner = mongoose.Types.ObjectId(winnerId);
+        // Get Correct Predictions
+        var predictions = await Prediction.find({
+            match : match.id, 
+            team : winnerId
+        });
+        // console.log({predictions});
+        var userIds = predictions.map(predict=>predict.user);
+        // Update users score
+        await User.updateMany(
+            { "_id": {$in: userIds} },
+            {$inc : {'score' : 10}},  // increment score 10
         )
 
         await match.save();
         
-        if(!match){
-            return res.status(400).json(errorMessage("No match found on given date"));
-        }
-
         return res.json(successMessage(match));
     }catch(err){
         console.log(err)
