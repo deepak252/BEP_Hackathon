@@ -1,6 +1,64 @@
-.selectDateBox{
+.wrapper_background{
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: black;
+    opacity: 70%;
+}
+
+.wrapper{
+    opacity: 100% !important;
     width: 90vw;
-    margin: 5rem auto 5rem;
+    height: 100%;
+    margin: auto;
+    padding-top: 2rem;
+}
+
+.ipl_cover_photo{
+    height: 100%;
+    position: relative;
+    width: 100%;
+    background-image: url('../../public/images/iplTeams.jpeg');
+    background-repeat: no-repeat;
+    background-size: cover;
+    height: 100vh;
+}
+
+.today_match_title{
+    position: relative;
+    margin: 2rem;
+    display: flex;
+    align-items: center;
+}
+
+
+.selectDateBox{
+    z-index: 99;
+    position: relative;
+    opacity: 100% !important;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    text-align: center;
+    background-color: rgb(17, 98, 125);
+    border-radius: 10px;
+    padding-top: 1em;
+    align-items: center;
+    padding-bottom: 1rem;
+
+    p{
+        color: white;
+        margin-bottom: 0 !important;
+    }
+}
+
+.spinner-wrapper{
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 .dateBox{
@@ -8,8 +66,10 @@
     display: flex;
     flex-direction: row;
     justify-content: start;
+
     
     label{
         width: fit-content;
     }
 }
+

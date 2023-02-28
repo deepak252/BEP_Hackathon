@@ -10,10 +10,14 @@ function MainNavigation() {
     <Navbar className={classes.navbar} expand="lg">
       <Container>
         <Navbar.Brand href="/" style={{color:"white"}}>IPL</Navbar.Brand>
+        <Navbar.Toggle aria-controls="navbarScroll" />
+        <Navbar.Collapse id="navbarScroll">
         <Nav className="me-auto">
           <NavLink to="/" className={(navData) => navData.isActive ? `${classes["isLinkActive"]} ${classes["link"]}`: `${classes["link"]}`}>Make a prediction</NavLink>
           <NavLink to="/leaderboard" className={(navData) => navData.isActive ? `${classes["isLinkActive"]} ${classes["link"]}`: `${classes["link"]}`}>Leaderboard</NavLink>
-        </Nav>
+          </Nav>
+          <NavLink   to="/login" className={`${classes["link"]} ${classes["logout-btn"]}`}>Logout</NavLink>
+        </Navbar.Collapse>
       </Container>
     </Navbar>
   );
