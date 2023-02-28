@@ -1,0 +1,70 @@
+.login-div {
+    width: 400px;
+    background: #fff;
+    border: 1px solid #dddfe2;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, .10), 0 8px 16px rgba(0, 0, 0, .10);
+    border-radius: 8px;
+    padding: 1rem;
+    /* align-items: center; */
+    text-align: center;
+    margin: 10% auto;
+    
+  }
+
+  .login-div label{
+    display: block;
+    padding-left: 2%;
+    text-align: start;
+    margin-bottom: 2%;
+  }
+  
+  .login-div p{
+    display: block;
+    text-align: start;
+    // margin-bottom: 2%;
+  }
+
+  .login-div h1{
+    margin-bottom: 6%;
+  }
+
+  .login-div form div{
+    margin-bottom: 5%;
+  }
+  .login_div .form  input {
+    border-radius: 8px;
+    border: 2px solid #dddfe2;
+    outline: none;
+    color: #1d2129;
+    margin: 0.5rem 5%;
+    padding: 0.5rem 0.75rem;
+    width: 92%;
+    font-size: 1rem;
+
+  }
+  
+  .login-div .primary-btn {
+    background-color: #0c5fbe; /* Green */
+  border: none;
+  color: white;
+  padding: 10px 120px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  border-radius: 8px; 
+}
+
+  .login-div .secondary-btn {
+    background-color: #06d87d; /* Green */
+  border: none;
+  color: white;
+  padding: 15px 32px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  border-radius: 8px; 
+
+  }
+  

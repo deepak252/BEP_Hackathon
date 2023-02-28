@@ -6,12 +6,6 @@ import classes from "./Leaderboard.module.scss"
 const LeaderBoard = () => {
   return (
     <div className={classes["leaderboard"]}>
-    {/* <img src="images/Photography.jpg" class="theme-img"/> */}
-    {/* <div className="classes.description">
-        <h3>21st Annual Photographic Competition</h3>
-        <p>Date: 02/24/2022</p>
-        <input id="search" className="classes.search" placeholder="Search" onInput="search()"/>
-    </div> */}
         <table>
             <thead>
                 <tr>
@@ -25,6 +19,7 @@ const LeaderBoard = () => {
                         Score
                     </td>
                 </tr>
+                <hr></hr>
             </thead>
             <tbody>
                 <tr>

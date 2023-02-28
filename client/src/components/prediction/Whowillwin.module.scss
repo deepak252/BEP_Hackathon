@@ -1,0 +1,35 @@
+.who_will_win_box{
+    width: 90vw;    
+    margin: auto;
+}
+
+.prediction_form{
+    display: flex;
+    flex-direction: column;
+}
+
+.title{
+    text-align: center;
+    margin-top: 2rem;
+}
+
+.voteBtn{
+    text-align: center;
+}
+
+.team_option_selection{
+    margin-top: 2rem;
+    margin-bottom: 2rem;
+    width: 100%;
+    display: flex;
+    justify-content: space-evenly;
+}
+
+.team_option *{
+    margin-left: 0.5rem;
+    margin-right: 0.5rem;
+}
+
+.team_option input{
+    padding : 1rem
+}

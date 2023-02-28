@@ -4,6 +4,7 @@ import Login from './pages/Login';
 import Register from './pages/Register';
 import LeaderBoard from './pages/LeaderBoard';
 import MakePrediction from './pages/MakePrediction';
+import PredictionHistory from './pages/PredictionHistory'
 import { Route, Link, Routes } from 'react-router-dom'  
 
 
@@ -15,6 +16,7 @@ function App() {
           <Route path="/login" element={<Login/>} />
           <Route path="/register" element={<Register/>} />
           <Route path="/leaderboard" element={<LeaderBoard/>} />
+          <Route path="/predictionHistory" element={<PredictionHistory/>} />
       </Routes> 
     </Layout>
   );
