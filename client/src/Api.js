@@ -9,7 +9,8 @@ const predictionUrl = baseUrl + "/prediction"
 
 async function sendLoginDetails(username, password) {
     const res = await axios({
-        url: authUrl+"/signin",
+        // url: authUrl+"/signin",
+        url: "/auth/signin",
         method: "POST",
         data: {"email": username, "password": password},
       });
@@ -19,7 +20,8 @@ async function sendLoginDetails(username, password) {
 
 async function sendRegisterDetails(username, password, name) {
     const res = await axios({
-        url: authUrl+"/signup",
+        // url: authUrl+"/signup",
+        url: "/auth/signup",
         method: "POST",
         data: {"email": username, "password": password, "name": name},
       });
@@ -32,7 +34,8 @@ async function voteMatch(teamId, matchId){
   let res;
   try {
     res = await axios({
-      url: predictionUrl + "/createPrediction",
+      // url: predictionUrl + "/createPrediction",
+      url: "/prediction/createPrediction",
       method: "POST",
       headers : {
         Authorization : localStorage.getItem("token")
@@ -52,7 +55,8 @@ async function getMatch(date) {
   let res;
   try {
     res = await axios({
-      url: matchUrl + "/matchByDate",
+      // url: matchUrl + "/matchByDate",
+      url: "/match/matchByDate",
       method: "POST",
       data: {date: date.toISOString()},
   })
