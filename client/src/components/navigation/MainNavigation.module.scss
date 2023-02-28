@@ -2,20 +2,40 @@ $navbarBackgroundColor : #2b447d;
 $hoverLinkColor : #79bee1;
 
 .navbar{    
-    background-color : $navbarBackgroundColor !important
-}
-
-.link{
-    text-decoration: none;
-    color: white;
-    margin-left: 1rem;
-    margin-right: 1rem;
-
-    &:hover{
-        color: $hoverLinkColor
+    background-color : $navbarBackgroundColor !important;
+    padding-left: 1rem !important;
+    padding-right: 1rem !important;
+  
+    @media screen and (max-width: 991px) {
+      gap: 1rem;
     }
 }
 
-.isLinkActive{
-    color:#27ac61;
+.link {
+  text-decoration: none;
+  color: white;
+
+
+  @media screen and (min-width : 992px) {
+    margin-left: 1rem;
+    margin-right: 1rem; 
+  }
+
+  &:hover {
+    color: $hoverLinkColor;
+  }
+
+  @media screen and (max-width: 991px) {
+    margin-top: 0.5rem;
+    margin-bottom: 0.5rem;
+  }
+}
+
+.logout-btn{
+    margin-left: auto;
+    text-align: right;
+}
+
+.isLinkActive {
+  color: #34dc4a;
 }
