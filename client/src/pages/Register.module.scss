@@ -1,0 +1,54 @@
+.register-div {
+  width: 400px;
+  background: #fff;
+  border: 1px solid #dddfe2;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1), 0 8px 16px rgba(0, 0, 0, 0.1);
+  border-radius: 8px;
+  padding: 1rem;
+  text-align: center;
+  margin: 10% auto;
+}
+.register-div h1 {
+  margin: 6%;
+}
+
+.register-div p {
+  display: block;
+  text-align: start;
+  // margin-bottom: 2%;
+}
+
+.register-div label {
+  display: block;
+  padding-left: 2%;
+  text-align: start;
+  margin-bottom: 2%;
+}
+
+.register-div form div {
+  margin-bottom: 5%;
+}
+
+.register-div input {
+  border-radius: 8px;
+  border: 2px solid #dddfe2;
+  outline: none;
+  color: #1d2129;
+  margin: 0.5rem 0;
+  padding: 0.5rem 0.75rem;
+  width: 92%;
+  font-size: 1rem;
+}
+
+.register-div .primary-btn {
+  background-color: #0c5fbe; /* Green */
+  border: none;
+  color: white;
+  padding: 10px 120px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  border-radius: 8px;
+  margin-top: 1.5em;
+}

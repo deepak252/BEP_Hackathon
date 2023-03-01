@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import TodaysMatch from "../components/prediction/TodaysMatch";
 import DatePicker from "react-datepicker";
 import classes from "./MakePrediction.module.scss";
@@ -8,6 +8,7 @@ import Whowillwin from "../components/prediction/Whowillwin";
 import { getMatch } from "../Api";
 import LoadingSpinner from "../components/ui/LoadingSpinner";
 import Timer from "../components/prediction/Timer";
+import UserContext from "../utils/context";
 
 const months = [
   "January",
@@ -31,6 +32,24 @@ const MakePrediction = () => {
   const [match, setMatch] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
   const [timeRemaining, setTimeRemaining] = useState(0);
+  const userContext = useContext(UserContext);
+  const [voteThanksMessage, setVoteThanksMessage] = useState(null);
+
+  const ExampleCustomInput = React.forwardRef(({ value, onClick }, ref) => (
+    <button
+      style={{
+        backgroundColor: "rgb(44,67,125)",
+        border: "0",
+        color: "white",
+        padding: "0.5rem",
+        borderRadius: "5px",
+      }}
+      onClick={onClick}
+      ref={ref}
+    >
+      {value}
+    </button>
+  ));
 
   useEffect(() => {
     const getRequiredMatch = async () => {
@@ -51,6 +70,8 @@ const MakePrediction = () => {
       } else {
         setTimeRemaining(0);
       }
+
+      userContext.setIsAlreadyVoted(res.data.data.prediction);
 
       setIsLoading(false);
     };
@@ -76,6 +97,7 @@ const MakePrediction = () => {
             Select the date on which you want to see the scheduled matches :{" "}
           </p>
           <DatePicker
+            customInput={<ExampleCustomInput />}
             selected={date}
             onChange={(date) => setDate(date)}
             includeDateIntervals={[
@@ -111,21 +133,44 @@ const MakePrediction = () => {
               ) : (
                 <div>
                   <Timer timeRemaining={timeRemaining} />
-                  <div className={classes["slideRight-wrapper"]}>
+                  <div
+                    style={{ backgroundColor: team1.teamColor }}
+                    className={classes["slideRight-wrapper"]}
+                  >
                     <img
                       className={classes["slideRight"]}
-                      src="https://img-s-msn-com.akamaized.net/tenant/amp/entityid/AAWhtfS.img?m=6&q=80"
+                      src={team1.captainImg}
                     />
                   </div>
 
-                  <div className={classes["slideLeft-wrapper"]}>
+                  <div
+                    style={{ backgroundColor: team2.teamColor }}
+                    className={classes["slideLeft-wrapper"]}
+                  >
                     <img
                       className={classes["slideLeft"]}
-                      src="https://img-s-msn-com.akamaized.net/tenant/amp/entityid/AAWhtfS.img?m=6&q=80"
+                      src={team2.captainImg}
                     />
                   </div>
 
-                  <Whowillwin team1={team1} team2={team2} match={match} />
+                  {userContext.isAlreadyVoted ? (
+                    <h2
+                      className={classes["already_voted_title"]}
+                      style={{ color: "white" }}
+                    >
+                      {voteThanksMessage
+                        ? "Thanks for voting!"
+                        : "You've Already Voted!"}
+                    </h2>
+                  ) : (
+                    <Whowillwin
+                      team1={team1}
+                      team2={team2}
+                      match={match}
+                      setMessage={setVoteThanksMessage}
+                      message={voteThanksMessage}
+                    />
+                  )}
                 </div>
               )}
             </div>
