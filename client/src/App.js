@@ -8,6 +8,7 @@ import { Route, Link, Routes, Navigate } from "react-router-dom";
 import UserContext from "./utils/context";
 import { useContext } from "react";
 import Error from "./pages/Error";
+import PredictionHistory from "./pages/PredictionHistory";
 
 function App() {
   const userContext = useContext(UserContext);
@@ -25,6 +26,18 @@ function App() {
             )
           }
         />
+
+        <Route
+          path="/myPredictionHistory"
+          element={
+            userContext.isAuthenticated ? (
+              <PredictionHistory />
+            ) : (
+              <Navigate replace to="/login" />
+            )
+          }
+        />
+
         <Route
           path="/login"
           element={

@@ -1,24 +1,26 @@
-$navbarBackgroundColor : #2b447d; 
-$hoverLinkColor : #79bee1;
+$navbarBackgroundColor: #2b447d;
+$hoverLinkColor: #79bee1;
 
-.navbar{    
-    background-color : $navbarBackgroundColor !important;
-    padding-left: 1rem !important;
-    padding-right: 1rem !important;
-  
-    @media screen and (max-width: 991px) {
-      gap: 1rem;
-    }
+.navbar {
+  position: sticky !important;
+  top: 0;
+  z-index: 999;
+  background-color: $navbarBackgroundColor !important;
+  padding-left: 1rem !important;
+  padding-right: 1rem !important;
+
+  @media screen and (max-width: 991px) {
+    gap: 1rem;
+  }
 }
 
 .link {
   text-decoration: none;
   color: white;
 
-
-  @media screen and (min-width : 992px) {
+  @media screen and (min-width: 992px) {
     margin-left: 1rem;
-    margin-right: 1rem; 
+    margin-right: 1rem;
   }
 
   &:hover {
@@ -31,9 +33,9 @@ $hoverLinkColor : #79bee1;
   }
 }
 
-.logout-btn{
-    margin-left: auto;
-    text-align: right;
+.logout-btn {
+  margin-left: auto;
+  text-align: right;
 }
 
 .isLinkActive {

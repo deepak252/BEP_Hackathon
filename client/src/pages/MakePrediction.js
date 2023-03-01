@@ -100,6 +100,7 @@ const MakePrediction = () => {
             customInput={<ExampleCustomInput />}
             selected={date}
             onChange={(date) => setDate(date)}
+            dateFormat="dd/MM/yyyy"
             includeDateIntervals={[
               {
                 start: subDays(new Date("24 Feb 2023"), 0),
