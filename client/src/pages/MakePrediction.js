@@ -18,8 +18,6 @@ const MakePrediction = () => {
     const [match, setMatch] = useState(null)
     const [isLoading, setIsLoading] = useState(false);
 
-
-   
     useEffect(() => {
         const getRequiredMatch = async () => {
         setIsLoading(true);
