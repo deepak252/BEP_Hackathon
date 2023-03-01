@@ -1,0 +1,21 @@
+$navbarBackgroundColor : #2b447d; 
+$hoverLinkColor : #79bee1;
+
+.navbar{    
+    background-color : $navbarBackgroundColor !important
+}
+
+.link{
+    text-decoration: none;
+    color: white;
+    margin-left: 1rem;
+    margin-right: 1rem;
+
+    &:hover{
+        color: $hoverLinkColor
+    }
+}
+
+.isLinkActive{
+    color:#27ac61;
+}
