@@ -58,8 +58,6 @@ function MainNavigation() {
             >
               Leaderboard
             </NavLink>
-<<<<<<< HEAD
-=======
 
             {userContext.isAuthenticated && (
               <NavLink
@@ -73,7 +71,6 @@ function MainNavigation() {
                 My Prediction History
               </NavLink>
             )}
->>>>>>> d83bbe86822bea42f37e9c25a39b2f69d5dc15ce
           </Nav>
 
           {userContext.isAuthenticated && (
@@ -114,27 +111,18 @@ function MainNavigation() {
             </div>
           )}
         </Navbar.Collapse>
-
       </Container>
     </Navbar>
   );
 }
-<<<<<<< HEAD
-{/* <Navbar.Brand href="/" style={{color:"white"}}>Byju's Premier League</Navbar.Brand>
-=======
 {
   /* <Navbar.Brand href="/" style={{color:"white"}}>Byju's Premier League</Navbar.Brand>
->>>>>>> d83bbe86822bea42f37e9c25a39b2f69d5dc15ce
         <Nav className="me-auto">
           <NavLink to="/" className={(navData) => navData.isActive ? `${classes["isLinkActive"]} ${classes["link"]}`: `${classes["link"]}`}>Make a prediction</NavLink>
           <NavLink to="/leaderboard" className={(navData) => navData.isActive ? `${classes["isLinkActive"]} ${classes["link"]}`: `${classes["link"]}`}>Leaderboard</NavLink>
           <NavLink to="/predictionHistory" className={(navData) => navData.isActive ? `${classes["isLinkActive"]} ${classes["link"]}`: `${classes["link"]}`}>Prediction History</NavLink>
 
-<<<<<<< HEAD
-        </Nav> */}
-=======
         </Nav> */
 }
->>>>>>> d83bbe86822bea42f37e9c25a39b2f69d5dc15ce
 
 export default MainNavigation;

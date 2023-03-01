@@ -8,10 +8,7 @@ import { Route, Link, Routes, Navigate } from "react-router-dom";
 import UserContext from "./utils/context";
 import { useContext } from "react";
 import Error from "./pages/Error";
-<<<<<<< HEAD
-=======
 import PredictionHistory from "./pages/PredictionHistory";
->>>>>>> d83bbe86822bea42f37e9c25a39b2f69d5dc15ce
 
 function App() {
   const userContext = useContext(UserContext);
@@ -29,8 +26,6 @@ function App() {
             )
           }
         />
-<<<<<<< HEAD
-=======
 
         <Route
           path="/myPredictionHistory"
@@ -43,7 +38,6 @@ function App() {
           }
         />
 
->>>>>>> d83bbe86822bea42f37e9c25a39b2f69d5dc15ce
         <Route
           path="/login"
           element={
