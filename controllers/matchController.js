@@ -85,9 +85,9 @@ module.exports.setResult = async (req,res)=>{
         if(!match){
             return res.status(400).json(errorMessage("No match found"));
         }
-        if(match.winner){
-            return res.status(400).json(errorMessage("Match result already declared!"));
-        }
+        // if(match.winner){
+        //     return res.status(400).json(errorMessage("Match result already declared!"));
+        // }
         var winnerId = teamNo===1 ? match.team1._id : match.team2._id;
         match.winner = mongoose.Types.ObjectId(winnerId);
         // Get Correct Predictions
