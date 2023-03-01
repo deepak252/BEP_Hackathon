@@ -30,7 +30,7 @@ async function sendRegisterDetails(username, password, name) {
   return res.data["data"]["token"];
 }
 
-async function voteMatch(teamId, matchId, setIsAlreadyVoted) {
+async function voteMatch(teamId, matchId) {
   let res;
   try {
     res = await axios({
@@ -57,12 +57,16 @@ async function getMatch(date) {
       url: matchUrl + "/matchByDate",
       // url: "/match/matchByDate",
       method: "POST",
+      headers: {
+        Authorization: localStorage.getItem("token"),
+      },
       data: { date: date.toISOString() },
     });
   } catch (error) {
     console.log(error);
   }
 
+  console.log(res);
   return res;
 }
 

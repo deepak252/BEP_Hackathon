@@ -3,7 +3,7 @@ const UserContext = createContext();
 
 export const UserContextProvider = (props) => {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
-  const [isAlreadyVoted, setIsAlreadyVoted] = useState(false);
+  const [isAlreadyVoted, setIsAlreadyVoted] = useState(null);
 
   useEffect(() => {
     if (localStorage.getItem("token")) {

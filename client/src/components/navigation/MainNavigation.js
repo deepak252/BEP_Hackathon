@@ -98,9 +98,17 @@ function MainNavigation() {
             </div>
           )}
         </Navbar.Collapse>
+
       </Container>
     </Navbar>
   );
 }
+{/* <Navbar.Brand href="/" style={{color:"white"}}>Byju's Premier League</Navbar.Brand>
+        <Nav className="me-auto">
+          <NavLink to="/" className={(navData) => navData.isActive ? `${classes["isLinkActive"]} ${classes["link"]}`: `${classes["link"]}`}>Make a prediction</NavLink>
+          <NavLink to="/leaderboard" className={(navData) => navData.isActive ? `${classes["isLinkActive"]} ${classes["link"]}`: `${classes["link"]}`}>Leaderboard</NavLink>
+          <NavLink to="/predictionHistory" className={(navData) => navData.isActive ? `${classes["isLinkActive"]} ${classes["link"]}`: `${classes["link"]}`}>Prediction History</NavLink>
+
+        </Nav> */}
 
 export default MainNavigation;

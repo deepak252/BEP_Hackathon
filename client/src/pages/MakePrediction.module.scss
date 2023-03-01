@@ -76,7 +76,8 @@
   }
 }
 
-.match-ended-text {
+.match-ended-text,
+.already_voted_title {
   color: white;
   text-align: center;
   margin: 2rem auto;
@@ -87,17 +88,17 @@
   left: -600px;
   width: 460px;
   height: 100px;
-  background-color: red;
   -webkit-animation: slideRight 0.5s forwards;
   animation: slideRight 0.5s forwards;
   border-bottom-right-radius: 15px;
+  border-top-right-radius: 15px;
 }
 
 .slideRight {
   position: absolute;
   left: -600px;
   width: 300px;
-  height: 200px;
+  height: 250px;
   right: 0;
   bottom: 0;
   margin-left: auto;
@@ -124,17 +125,17 @@
   right: -600px;
   width: 460px;
   height: 100px;
-  background-color: red;
   -webkit-animation: slideLeft 0.5s forwards;
   animation: slideLeft 0.5s forwards;
   border-bottom-left-radius: 15px;
+  border-top-left-radius: 15px;
 }
 
 .slideLeft {
   position: absolute;
   right: -600px;
   width: 300px;
-  height: 200px;
+  height: 250px;
   left: 0;
   bottom: 0;
   margin-right: auto;

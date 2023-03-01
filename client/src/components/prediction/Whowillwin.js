@@ -4,22 +4,17 @@ import Button from "react-bootstrap/Button";
 import { voteMatch } from "../../Api";
 import { useState } from "react";
 import LoadingSpinner from "../ui/LoadingSpinner";
-import UserContext from "../../utils/context";
 import { useContext } from "react";
+import UserContext from "../../utils/context";
 
 const Whowillwin = (props) => {
   const { team1, team2, match } = props;
   const [selectedTeam, setSelectedTeam] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
   const userContext = useContext(UserContext);
-  const [errorMessage, setErrorMessage] = useState(null);
-
-  useEffect(() => {
-    setErrorMessage(null);
-  }, []);
 
   const onSubmithandler = async (event) => {
-    setErrorMessage(null);
+    props.setMessage(null);
     event.preventDefault();
 
     if (!selectedTeam) {
@@ -30,10 +25,10 @@ const Whowillwin = (props) => {
     try {
       setIsLoading(true);
       const res = await voteMatch(selectedTeam, match);
+      userContext.setIsAlreadyVoted(true);
+      props.setMessage("Thanks for voting!");
     } catch (error) {
-      console.log(error.response);
-      userContext.setIsAlreadyVoted(!error.response.data.success);
-      setErrorMessage(error.response.data.error);
+      console.log(error);
     }
 
     setIsLoading(false);
@@ -43,8 +38,8 @@ const Whowillwin = (props) => {
 
   return (
     <div>
-      {userContext.isAlreadyVoted ? (
-        <h2 className={classes["already-voted-text"]}>{errorMessage}</h2>
+      {props.message ? (
+        <h2>{props.message}</h2>
       ) : (
         <div className={classes["who_will_win_box"]}>
           <h4 className={classes.title}>Who Will Win ?</h4>
