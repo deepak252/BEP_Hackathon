@@ -1,6 +1,7 @@
 const express = require("express");
 const { successMessage } = require("./utils/responseUtils");
 const connectMongo = require("./db");
+const { connectRedis } = require("./redis")
 const cors = require('cors');
 
 require("dotenv").config();
@@ -17,11 +18,11 @@ app.use(require("./routes/predictionRoute"));
 app.use(require("./routes/userRoute"));
 
 connectMongo();
+connectRedis();
 
 app.get("/",(req,res)=>{
     return res.json(successMessage("Welcome To SPL - Sasta Premier League"));
 })
-
 
 app.listen(process.env.PORT,()=>{
     console.log("Server is running at Port ", PORT);
