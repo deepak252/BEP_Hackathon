@@ -39,18 +39,28 @@ module.exports.getMatchByDate = async (req,res)=>{
         var matchDate = new Date(req.body.date);
         
         var match = await getMatchFromDate(matchDate);
+        // console.log(match);
+        if(!match){
+            return res.status(400).json(errorMessage("No match on given date!"));
+        }
+        var data = {};
+        data["allMatches"]  = [match];
 
         var currentDate = new Date(new Date().toUTCString());
         var timeRemaining = (matchDate-currentDate)/1000; // Time remaining in minutes
-        if (timeRemaining < 0)
-            return res.json(successMessage({
-                "allMatches" : [match]
-            }));
-        else 
-        return res.json(successMessage({
-            match,
-            timeRemaining
-        }));
+        if(timeRemaining>0){
+            data["timeRemaining"] = timeRemaining;
+        }
+        var prediction = await Prediction.findOne({
+            match : match._id,
+            user : req.user._id
+        });
+        if(prediction){
+            data["prediction"] = prediction;
+        }
+        console.log(data)
+        return res.json(successMessage(data));
+
     }catch(err){
         console.log(err)
         return res.status(400).json(errorMessage(err.message));
@@ -75,9 +85,9 @@ module.exports.setResult = async (req,res)=>{
         if(!match){
             return res.status(400).json(errorMessage("No match found"));
         }
-        // if(match.winner){
-        //     return res.status(400).json(errorMessage("Match result already declared!"));
-        // }
+        if(match.winner){
+            return res.status(400).json(errorMessage("Match result already declared!"));
+        }
         var winnerId = teamNo===1 ? match.team1._id : match.team2._id;
         match.winner = mongoose.Types.ObjectId(winnerId);
         // Get Correct Predictions

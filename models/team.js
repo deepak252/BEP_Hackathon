@@ -6,6 +6,12 @@ const teamSchema = new mongoose.Schema({
     },
     imgUrl : {
         type : String
+    },
+    captainImg : {
+        type : String
+    },
+    teamColor : {
+        type : String
     }
 }, { timestamps: true });
 
