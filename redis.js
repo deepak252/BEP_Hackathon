@@ -1,14 +1,14 @@
-const {createClient} =require("redis");
+const {createClient} = require("redis");
 
-async function nodeRedisDemo() {
+const client = createClient();
+
+async function connectRedis() {
   try {
-    const client = createClient();
     await client.connect();
     console.log("Connected to Redis DB");
-    await client.quit();
   } catch (e) {
-    console.error("Error Connecting Redis",e);
+    console.error("Error Connecting Redis", e);
   }
 }
 
-nodeRedisDemo();
+module.exports = {client,connectRedis};
