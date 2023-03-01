@@ -1,42 +1,91 @@
-import React from "react";
+import React, { useEffect } from "react";
+import { getPastPredictions } from "../Api";
 import classes from "./PredictionHistory.module.scss";
 
-const PredictionHistory = () => {
+const PredictionHistory = (props) => {
+  useEffect(() => {
+    async function getHistory() {
+      const res = await getPastPredictions();
+      console.log(res);
+    }
+
+    getHistory();
+  }, []);
+
   return (
     <div className={classes["wrapper"]}>
       <div className={classes["wrapper_background"]} />
-      <div className={classes["container"]}>
-        <div className={classes["table"]}>
-          <div className={classes["table-header"]}>
-            {/* classes["header__item filter__link"] */}
-            <div className={`${classes.header_item} ${classes.filter_link}`}>
-              Date
+
+      <div className={classes["card-wrapper"]}>
+        <div className={classes["container"]}>
+          <div className={classes["table"]}>
+            <div className={classes["table-header"]}>
+              {/* classes["header__item filter__link"] */}
+              <div
+                className={`${classes.header_item} ${classes["filter_link"]}`}
+              >
+                Date
+              </div>
+              <div
+                className={`${classes.header_item} ${classes["filter_link"]}`}
+              >
+                Team
+              </div>
+              <div
+                className={`${classes.header_item} ${classes["filter_link"]}`}
+              >
+                Win/Loss
+              </div>
             </div>
-            <div className={`${classes.header_item} ${classes.filter_link}`}>
-              Team
-            </div>
-            <div className={`${classes.header_item} ${classes.filter_link}`}>
-              Win/Loss
-            </div>
-          </div>
-          <div className={classes["table-content"]}>
-            <div className={classes["table-row"]}>
-              <div className={classes["table-data"]}>Tom</div>
-              <div className={classes["table-data"]}>2</div>
-              <div className={classes["table-data"]}>0</div>
-              {/* <div className={classes["table-data"]}>1</div> */}
-            </div>
-            <div className={classes["table-row"]}>
-              <div className={classes["table-data"]}>Tom</div>
-              <div className={classes["table-data"]}>2</div>
-              <div className={classes["table-data"]}>0</div>
-              {/* <div className={classes["table-data"]}>1</div> */}
-            </div>
-            <div className={classes["table-row"]}>
-              <div className={classes["table-data"]}>Tom</div>
-              <div className={classes["table-data"]}>2</div>
-              <div className={classes["table-data"]}>0</div>
-              {/* <div className={predictionHistory["table-data"]}>1</div> */}
+            <div className={classes["table-content"]}>
+              <div className={classes["table-row"]}>
+                <div className={classes["table-data"]}>Tom</div>
+                <div className={classes["table-data"]}>2</div>
+                <div className={classes["table-data"]}>0</div>
+                {/* <div className={classes["table-data"]}>1</div> */}
+              </div>
+              <div className={classes["table-row"]}>
+                <div className={classes["table-data"]}>Tom</div>
+                <div className={classes["table-data"]}>2</div>
+                <div className={classes["table-data"]}>0</div>
+                {/* <div className={classes["table-data"]}>1</div> */}
+              </div>
+              <div className={classes["table-row"]}>
+                <div className={classes["table-data"]}>Tom</div>
+                <div className={classes["table-data"]}>2</div>
+                <div className={classes["table-data"]}>0</div>
+                {/* <div className={predictionHistory["table-data"]}>1</div> */}
+              </div>
+              <div className={classes["table-row"]}>
+                <div className={classes["table-data"]}>Tom</div>
+                <div className={classes["table-data"]}>2</div>
+                <div className={classes["table-data"]}>0</div>
+                {/* <div className={predictionHistory["table-data"]}>1</div> */}
+              </div>
+              <div className={classes["table-row"]}>
+                <div className={classes["table-data"]}>Tom</div>
+                <div className={classes["table-data"]}>2</div>
+                <div className={classes["table-data"]}>0</div>
+                {/* <div className={predictionHistory["table-data"]}>1</div> */}
+              </div>
+              <div className={classes["table-row"]}>
+                <div className={classes["table-data"]}>Tom</div>
+                <div className={classes["table-data"]}>2</div>
+                <div className={classes["table-data"]}>0</div>
+                {/* <div className={predictionHistory["table-data"]}>1</div> */}
+              </div>
+              <div className={classes["table-row"]}>
+                <div className={classes["table-data"]}>Tom</div>
+                <div className={classes["table-data"]}>2</div>
+                <div className={classes["table-data"]}>0</div>
+                {/* <div className={predictionHistory["table-data"]}>1</div> */}
+              </div>
+              <div className={classes["table-row"]}>
+                <div className={classes["table-data"]}>Tom</div>
+                <div className={classes["table-data"]}>2</div>
+                <div className={classes["table-data"]}>0</div>
+                {/* <div className={predictionHistory["table-data"]}>1</div> */}
+              </div>
             </div>
           </div>
         </div>

@@ -1,7 +1,7 @@
 import axios from "axios";
 
-const baseUrl = "http://192.168.1.18:2222";
-// const baseUrl = "http://192.168.5.120:2222";
+// const baseUrl = "http://192.168.1.18:2222";
+const baseUrl = "http://192.168.5.120:2222";
 // const baseUrl = "http://192.168.7.174:2222";
 
 const authUrl = baseUrl + "/auth";
@@ -66,8 +66,39 @@ async function getMatch(date) {
     console.log(error);
   }
 
-  console.log(res);
   return res;
 }
 
-export { sendLoginDetails, sendRegisterDetails, getMatch, voteMatch };
+async function getPastPredictions() {
+  let res;
+  let pastPredictions = [];
+  try {
+    res = await axios({
+      url: predictionUrl + "/pastPredictions",
+      method: "GET",
+      headers: {
+        Authorization: localStorage.getItem("token"),
+      },
+    });
+
+    if (res.status !== 200) {
+      alert("Unable to fetch past predictions!");
+      return;
+    }
+
+    pastPredictions = res.data.map((obj) => {});
+  } catch (error) {
+    alert("Unable to fetch past predictions!");
+    return;
+  }
+
+  return res;
+}
+
+export {
+  sendLoginDetails,
+  sendRegisterDetails,
+  getMatch,
+  voteMatch,
+  getPastPredictions,
+};

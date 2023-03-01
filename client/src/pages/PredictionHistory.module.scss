@@ -4,21 +4,7 @@ $base-spacing-unit: 24px;
 $half-spacing-unit: $base-spacing-unit / 2;
 
 $color-alpha: #1772ff;
-$color-form-highlight: gray;
-
-// *, *:before, *:after {
-// 	box-sizing:border-box;
-// }
-
-// body {
-// 	padding:$base-spacing-unit;
-// 	font-family:'Source Sans Pro', sans-serif;
-// 	margin:0;
-// }
-
-// h1,h2,h3,h4,h5,h6 {
-// 	margin:0;
-// }
+$color-form-highlight: rgb(194, 192, 192);
 
 .wrapper {
   position: relative;
@@ -26,7 +12,7 @@ $color-form-highlight: gray;
   background-image: url("../../public/images/iplTeams.jpeg");
   background-repeat: no-repeat;
   background-size: cover;
-  height: 100vh;
+  height: calc(100vh - 56px);
   display: flex;
   justify-content: center;
   align-items: center;
@@ -42,37 +28,55 @@ $color-form-highlight: gray;
   opacity: 70%;
 }
 
+.card-wrapper {
+  padding: 1rem;
+  border-radius: 20px;
+}
+
 .container {
   position: relative;
-  background-color: #eeeeee;
+  background-color: #eee;
   width: 60vw;
   max-width: 1000px;
   margin: auto;
-  padding: 1rem;
   border-radius: 20px;
   // display:flex;
-  margin-top: 10rem;
+
   justify-content: center;
   align-items: center;
-  min-height: max-content;
+  overflow: scroll;
 }
 
 .table {
   width: 100%;
+  position: relative;
+}
+
+.table-content {
+  overflow: scroll;
+  max-height: 40rem;
 }
 
 .table-header {
   display: flex;
   width: 100%;
-  background: #000;
+  background: #2b447d;
   color: white;
-  padding: ($half-spacing-unit * 1.5) 0;
+  padding: ($half-spacing-unit * 1.4) 0;
+  position: absolute;
+  top: 0;
+  left: 0;
 }
 
 .table-row {
   display: flex;
   width: 100%;
-  padding: ($half-spacing-unit * 1.5) 0;
+  padding: ($half-spacing-unit * 1.4) 0;
+
+  &:hover {
+    transform: scale(1.05);
+    transition: 0.2s ease-in-out;
+  }
 
   &:nth-of-type(odd) {
     background: $color-form-highlight;
@@ -80,38 +84,20 @@ $color-form-highlight: gray;
 }
 
 .table-data,
-.header__item {
+.header_item {
   flex: 1 1 20%;
   text-align: center;
 }
 
-.header__item {
+.header_item {
   text-transform: uppercase;
 }
 
-.filter__link {
+.filter_link {
   color: white;
   text-decoration: none;
   position: relative;
   display: inline-block;
   padding-left: $base-spacing-unit;
   padding-right: $base-spacing-unit;
-
-  // 	&::after {
-  // 		content:'';
-  // 		position:absolute;
-  // 		right:-($half-spacing-unit * 1.5);
-  // 		color:white;
-  // 		font-size:$half-spacing-unit;
-  // 		top: 50%;
-  // 		transform: translateY(-50%);
-  // 	}
-
-  // 	&.desc::after {
-  // 		content: '(desc)';
-  // 	}
-
-  // 	&.asc::after {
-  // 		content: '(asc)';
-  // 	}
 }
