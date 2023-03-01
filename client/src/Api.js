@@ -1,48 +1,48 @@
-import axios from "axios"
+import axios from "axios";
 
-// const baseUrl = "http://192.168.1.18:2222"
-const baseUrl = "http://192.168.5.120:2222"
+const baseUrl = "http://192.168.1.18:2222";
+// const baseUrl = "http://192.168.5.120:2222";
+// const baseUrl = "http://192.168.7.174:2222";
 
-const authUrl = baseUrl + "/auth"
-const matchUrl = baseUrl + "/match"
-const predictionUrl = baseUrl + "/prediction"
+const authUrl = baseUrl + "/auth";
+const matchUrl = baseUrl + "/match";
+const predictionUrl = baseUrl + "/prediction";
 
 async function sendLoginDetails(username, password) {
-    const res = await axios({
-        // url: authUrl+"/signin",
-        url: "/auth/signin",
-        method: "POST",
-        data: {"email": username, "password": password},
-      });
+  const res = await axios({
+    url: authUrl + "/signin",
+    // url: "/auth/signin",
+    method: "POST",
+    data: { email: username, password: password },
+  });
 
-    localStorage.setItem("token", res.data['data']['token']);
+  return res.data["data"]["token"];
 }
 
 async function sendRegisterDetails(username, password, name) {
-    const res = await axios({
-        // url: authUrl+"/signup",
-        url: "/auth/signup",
-        method: "POST",
-        data: {"email": username, "password": password, "name": name},
-      });
+  const res = await axios({
+    url: authUrl + "/signup",
+    // url: "/auth/signup",
+    method: "POST",
+    data: { email: username, password: password, name: name },
+  });
 
-    localStorage.setItem("token", res.data['data']['token']);
+  return res.data["data"]["token"];
 }
 
-async function voteMatch(teamId, matchId){
-  
+async function voteMatch(teamId, matchId, setIsAlreadyVoted) {
   let res;
   try {
     res = await axios({
-      // url: predictionUrl + "/createPrediction",
-      url: "/prediction/createPrediction",
+      url: predictionUrl + "/createPrediction",
+      // url: "/prediction/createPrediction",
       method: "POST",
-      headers : {
-        Authorization : localStorage.getItem("token")
+      headers: {
+        Authorization: localStorage.getItem("token"),
       },
-      
-      data: {"team": teamId, "match" : matchId},
-    });    
+
+      data: { team: teamId, match: matchId },
+    });
   } catch (error) {
     console.log(error);
   }
@@ -51,23 +51,19 @@ async function voteMatch(teamId, matchId){
 }
 
 async function getMatch(date) {
-
   let res;
   try {
     res = await axios({
-      // url: matchUrl + "/matchByDate",
-      url: "/match/matchByDate",
+      url: matchUrl + "/matchByDate",
+      // url: "/match/matchByDate",
       method: "POST",
-      data: {date: date.toISOString()},
-  })
-
+      data: { date: date.toISOString() },
+    });
   } catch (error) {
-    console.log(error)    
+    console.log(error);
   }
-   
-  
-  return res;
 
+  return res;
 }
 
-export { sendLoginDetails, sendRegisterDetails, getMatch, voteMatch }
+export { sendLoginDetails, sendRegisterDetails, getMatch, voteMatch };

@@ -32,6 +32,22 @@ const MakePrediction = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [timeRemaining, setTimeRemaining] = useState(0);
 
+  const ExampleCustomInput = React.forwardRef(({ value, onClick }, ref) => (
+    <button
+      style={{
+        backgroundColor: "rgb(44,67,125)",
+        border: "0",
+        color: "white",
+        padding: "0.5rem",
+        borderRadius: "5px",
+      }}
+      onClick={onClick}
+      ref={ref}
+    >
+      {value}
+    </button>
+  ));
+
   useEffect(() => {
     const getRequiredMatch = async () => {
       setIsLoading(true);
@@ -76,6 +92,7 @@ const MakePrediction = () => {
             Select the date on which you want to see the scheduled matches :{" "}
           </p>
           <DatePicker
+            customInput={<ExampleCustomInput />}
             selected={date}
             onChange={(date) => setDate(date)}
             includeDateIntervals={[
