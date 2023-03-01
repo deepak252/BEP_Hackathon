@@ -3,17 +3,27 @@
     width: 90vw;
 }
 
-.today_match_title{
-    margin: 2rem;
+.vs_img_block{
+
+    img {
+        border-radius: 50%;
+        width: 150px;
+        height: 150px;
+    }
 }
 
 .main{
     margin: auto;
-    background-color: bisque;
     width: 100%;
     display: flex;
     flex-direction: row;
     justify-content: space-evenly;
     align-items: center;
     height: 20rem;
+}
+
+.team1_img, .team2_img{
+    width: 300px;
+    height: 300px;
+    border-radius: 20%;
 }
